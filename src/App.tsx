@@ -1,47 +1,146 @@
 import React, { useCallback } from "react";
 import Particles from "react-particles";
-import type { Engine } from "tsparticles-engine";
+import type { Container,Engine } from "tsparticles-engine";
 import { loadFull } from "tsparticles";
 import logo from "./logo.svg";
 import './App.css';
-import particlesOptions from "./particles.json";
-import { ISourceOptions } from "tsparticles-engine";
 
-function App() {
+
+const App = () => {
     const particlesInit = useCallback(async (engine: Engine) => {
         await loadFull(engine);
     }, []);
 
+    const particlesLoaded = useCallback(async container => {
+        await console.log('container',container);
+    }, []);
+
     return (
-        <div className="App">
-            <Particles options={particlesOptions as ISourceOptions} init={particlesInit}/>
-            <header className="App-header">
-                <img src={logo} className="App-logo" alt="logo"/>
-                <p>
-                    Edit <code>src/App.tsx</code> and save to reload.
-                </p>
-                <p>
-                    Edit <code>src/particles.json</code> to customize Particles, then save to reload.
-                </p>
-                <a
-                    className="App-link"
-                    href="https://reactjs.org"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    Learn React
-                </a>
-                <a
-                    className="App-link"
-                    href="https://particles.js.org"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    See Particles samples
-                </a>
-            </header>
-        </div>
+            <Particles
+                id="ambiente"
+                className="container-particle"
+                init={particlesInit}
+                loaded={particlesLoaded}
+                options={{
+                        particles: {
+                            number: {
+                                value: 100,
+                                density: {
+                                    enable: true,
+                                    value_area: 800
+                                }
+                            },
+                            color: {
+                                value: "#E8E8E8"
+                            },
+                            shape: {
+                                type: "circle",
+                                stroke: {
+                                    width: 0,
+                                    color: "#000000"
+                                },
+                                polygon: {
+                                    nb_sides: 5
+                                },
+                                image: {
+                                    src: "assets/img/github.svg",
+                                    width: 100,
+                                    height: 100
+                                }
+                            },
+                            opacity: {
+                                value: 0.5,
+                                random: false,
+                                anim: {
+                                    enable: false,
+                                    speed: 1,
+                                    opacity_min: 0.1,
+                                    sync: false
+                                }
+                            },
+                            size: {
+                                value: 8,
+                                random: true,
+                                anim: {
+                                    enable: false,
+                                    speed: 40,
+                                    size_min: 0.1,
+                                    sync: false
+                                }
+                            },
+                            line_linked: {
+                                enable: false,
+                                distance: 150,
+                                color: "#ffffff",
+                                opacity: 0.4,
+                                width: 1
+                            },
+                            move: {
+                                enable: true,
+                                speed: 2,
+                                direction: "bottom",
+                                random: false,
+                                straight: false,
+                                out_mode: "out",
+                                attract: {
+                                    enable: false,
+                                    rotateX: 600,
+                                    rotateY: 1200
+                                }
+                            }
+                        },
+                        interactivity: {
+                            detect_on: "canvas",
+                            events: {
+                                onhover: {
+                                    enable: false,
+                                    mode: "repulse"
+                                },
+                                onclick: {
+                                    enable: false,
+                                    mode: "push"
+                                },
+                                resize: true
+                            },
+                            modes: {
+                                grab: {
+                                    distance: 400,
+                                    line_linked: {
+                                        opacity: 1
+                                    }
+                                },
+                                bubble: {
+                                    distance: 400,
+                                    size: 40,
+                                    duration: 2,
+                                    opacity: 8,
+                                    speed: 3
+                                },
+                                repulse: {
+                                    distance: 200
+                                },
+                                push: {
+                                    particles_nb: 4
+                                },
+                                remove: {
+                                    particles_nb: 2
+                                }
+                            }
+                        },
+                        retina_detect: true,
+                        config_demo: {
+                            hide_card: false,
+                            background_color: "#b61924",
+                            // background_image: ,
+                            background_position: "50% 50%",
+                            background_repeat: "no-repeat",
+                            background_size: "cover"
+                        }
+                    }}
+                canvasClassName="ambiente"
+            />
     );
 }
 
 export default App;
+// console.log("app", App());
